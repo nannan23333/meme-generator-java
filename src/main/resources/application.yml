@@ -1,0 +1,22 @@
+server:
+  port: 2233
+
+spring:
+  threads:
+    virtual:
+      enabled: true
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+meme:
+  # 资源目录：复用原 Rust 仓库的 fonts / images
+  resource-dir: "${MEME_RESOURCE_DIR:C:/Users/pp/Desktop/meme/rs/meme-generator-rs/resources}"
+  max-concurrent-tasks: 16
+  body-limit: 20971520   # 20MB
+  disabled-list: ""
+
+logging:
+  level:
+    meme: INFO

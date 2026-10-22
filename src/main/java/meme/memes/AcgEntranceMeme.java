@@ -1,0 +1,52 @@
+package meme.memes;
+
+import meme.core.MemeInfo;
+import meme.core.MemeParams;
+import meme.utils.ImageEdit;
+import meme.utils.InputImage;
+import meme.utils.MemeResources;
+import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+/** acg_entrance 二次元入口：移植自 memes/acg_entrance.rs。 */
+@Component
+public class AcgEntranceMeme extends AbstractMeme {
+
+    public AcgEntranceMeme() {
+        super(new MemeInfo("acg_entrance",
+                new MemeParams(1, 1, 0, 1, List.of("走，跟我去二次元吧"), List.of()),
+                List.of("二次元入口"), List.of(), Set.of(),
+                OffsetDateTime.of(LocalDateTime.of(2023, 3, 30, 0, 0), ZoneOffset.ofHours(8)),
+                OffsetDateTime.of(LocalDateTime.of(2023, 3, 30, 0, 0), ZoneOffset.ofHours(8))));
+    }
+
+    @Override
+    protected byte[] doGenerate(List<InputImage> images, List<String> texts, Map<String, Object> options) {
+        String text = texts.isEmpty() ? "走，跟我去二次元吧" : texts.get(0);
+        var frame = MemeResources.loadImage("acg_entrance/0.png");
+        var textSurface = meme.utils.TextRenderer.newSurface(frame.getWidth(), frame.getHeight());
+        textSurface.getCanvas().drawImage(frame, 0, 0);
+        meme.utils.TextRenderer.drawTextAreaAutoFontSize(
+                textSurface.getCanvas(),
+                io.github.humbleui.types.Rect.makeLTRB(30, 720, frame.getWidth() - 30, 810),
+                text, 25f, 50f,
+                meme.utils.TextRenderer.params().fill(0xFFFFFFFF));
+        var composed = textSurface.makeImageSnapshot();
+
+        return InputImage.makePngOrGif(images.get(0), input -> {
+            var surface = meme.utils.TextRenderer.newSurface(composed.getWidth(), composed.getHeight());
+            var canvas = surface.getCanvas();
+            canvas.clear(0xFFFFFFFF);
+            var image = ImageEdit.resizeFit(input, 290, 410, ImageEdit.Fit.COVER);
+            canvas.drawImage(image, 190, 265);
+            canvas.drawImage(composed, 0, 0);
+            return surface.makeImageSnapshot();
+        });
+    }
+}

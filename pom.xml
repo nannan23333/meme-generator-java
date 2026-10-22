@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>4.1.1</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>meme</groupId>
+    <artifactId>meme-generator-java</artifactId>
+    <version>0.1.0</version>
+    <packaging>jar</packaging>
+    <name>meme-generator-java</name>
+    <description>Java rewrite of meme-generator-rs</description>
+
+    <properties>
+        <java.version>25</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <!-- Spring Boot Web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Skia 渲染引擎（Java 绑定） -->
+        <dependency>
+            <groupId>io.github.humbleui</groupId>
+            <artifactId>skija-shared</artifactId>
+            <version>0.143.18</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.humbleui</groupId>
+            <artifactId>skija-windows-x64</artifactId>
+            <version>0.143.18</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- GIF 动画编码 -->
+        <dependency>
+            <groupId>com.madgag</groupId>
+            <artifactId>animated-gif-lib</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+        <!-- 模糊搜索打分 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.13.0</version>
+        </dependency>
+
+        <!-- 二维码生成（alipay/wechat_pay 表情） -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.5.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>3.5.3</version>
+        </dependency>
+
+        <!-- 汉字转拼音（排序用） -->
+        <dependency>
+            <groupId>io.github.biezhi</groupId>
+            <artifactId>TinyPinyin</artifactId>
+            <version>2.0.3.RELEASE</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
